@@ -11,6 +11,13 @@ Animated Cellular Automata using Matplotlib
 
 For my part- they are extremely cool, and programming them is extremely fun. Although there are many tools and animations for building visual Cellular Automata, I found very little in the way of Python libraries. This library uses [matplotlib 1.3.1][matplotlib] to animate the behavior of cellular automata, and allows a researcher to use Python to build and visualize these very cool looking machines!
 
+## Usage ##
+Currently, you can view the R90 animation with a simple command:
+
+    $ bin/pyca
+
+This should launch the animation in its own window. If you're having trouble, remember to ensure that the `pyca` module is on the Python path. If you're using `virtualenv`, you may have to add a .pth file to the site packages folder of the environment.
+
 ## Dependencies ##
 This library depends on Python data libraries, particularly matplotlib and numpy. These libraries have a lot of compiling under the hood; you need to ensure that you have a Fortran compiler, and that you have ffmpeg libraries installed. Installing on a Mac (which this was developed on) is also notoriously difficult, so there are some Mac-specific hacks in the code. If you're getting errors trying to get the program to run, don't fear; it might not be the code, just the coder! Feel free to leave an issue and we'll sort it out together.
 
