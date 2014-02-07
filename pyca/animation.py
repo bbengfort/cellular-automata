@@ -91,15 +91,43 @@ class GridAnimation(object):
         raise NotImplementedError("Subclasses must implement.")
 
     def save(self, path):
-        self.ani.save(path, writer='ffmpeg', fps=30)
+        self.ani.save(path, writer='ffmpeg', fps=15)
 
     def show(self):
         plt.show()
 
+##########################################################################
+## Animation Wrapper for an Automata - animates the world.
+##########################################################################
+
+class AutomataAnimation(GridAnimation):
+
+    def __init__(self, automata, **kwargs):
+        self.automata    = automata
+        kwargs['width']  = automata.width
+        kwargs['height'] = automata.height
+        super(AutomataAnimation, self).__init__(**kwargs)
+
+    def init_grid(self):
+        self.grid = self.automata.world
+        return self.grid
+
+    def update(self, data):
+        try:
+            self.automata.next()
+        except StopIteration:
+            pass
+        return self.init_grid()
+
+##########################################################################
+## Random animation to test grid animation.
+##########################################################################
+
 class RandomGridAnimation(GridAnimation):
 
     def init_grid(self):
-        self.grid = np.random.choice(VALS, len(self), p=(0.2, 0.8)).reshape(self.shape)
+        self.grid = np.random.choice(VALS, len(self),
+                        p=(0.2, 0.8)).reshape(self.shape)
         return self.grid
 
     def update(self, data):

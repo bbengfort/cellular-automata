@@ -1,5 +1,5 @@
-# pyca.cells
-# Cellular Automata logic
+# pyca.simple
+# One dimensional Cellular Automata
 #
 # Author:   Benjamin Bengfort <benjamin@bengfort.com>
 # Created:  Fri Jan 31 10:49:41 2014 -0500
@@ -7,10 +7,10 @@
 # Copyright (C) 2014 Bengfort.com
 # For license information, see LICENSE.txt
 #
-# ID: cells.py [] benjamin@bengfort.com $
+# ID: simple.py [] benjamin@bengfort.com $
 
 """
-Cellular Automata logic
+Space-Time animation for one dimensional cellular automata.
 """
 
 ##########################################################################
@@ -18,7 +18,6 @@ Cellular Automata logic
 ##########################################################################
 
 import numpy as np
-from animation import GridAnimation
 
 ##########################################################################
 ## Automata
@@ -88,27 +87,11 @@ class Automata(object):
         return self.world[self.time]
     next = __next__
 
-class Animation(GridAnimation):
 
-    def __init__(self, automata, **kwargs):
-        self.automata    = automata
-        kwargs['width']  = automata.width
-        kwargs['height'] = automata.height
-        super(Animation, self).__init__(**kwargs)
-
-    def init_grid(self):
-        self.grid = self.automata.world
-        return self.grid
-
-    def update(self, data):
-        try:
-            self.automata.next()
-        except StopIteration:
-            pass
-        return self.init_grid()
 
 if __name__ == '__main__':
-    automata  = Automata(90, width=1280, height=720, randstart=False)
-    #automata  = Automata(90, width=100, height=100, randstart=True)
-    animation = Animation(automata)
+    from animation import AutomataAnimation
+    #automata  = Automata(110, width=1280, height=720, randstart=False)
+    automata  = Automata(110, width=100, height=100, randstart=True)
+    animation = AutomataAnimation(automata)
     animation.show()
